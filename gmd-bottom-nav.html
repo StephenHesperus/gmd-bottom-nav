@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="gmd-bottom-nav">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `gmd-bottom-nav`
+     * Google Material Design bottom navigation
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class GmdBottomNav extends Polymer.Element {
+      static get is() { return 'gmd-bottom-nav'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'gmd-bottom-nav'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(GmdBottomNav.is, GmdBottomNav);
+  </script>
+</dom-module>

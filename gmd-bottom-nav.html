@@ -14,6 +14,7 @@
         text-align: center;
       }
     </style>
+
     <h2>Hello [[prop1]]!</h2>
   </template>
 
@@ -39,6 +40,30 @@
             value: 'gmd-bottom-nav'
           }
         };
+      }
+
+      constructor() {
+        super()
+        this._lastScrollTop = 0
+      }
+
+      _computeDisplayStyle(wasScrollingDown) {
+        return hidden ? 'none' : 'block'
+      }
+
+      /*
+       * Override _scrollHanlder of Polymer.IronScrollTargetBehavior.
+       */
+      _scrollHandler() {
+        // First figure out scrolling up or down.
+        // _scrollTop is from Polymer.IronScrollTargetBehavior.
+        // The calculation is adopted from PolymerElements/app-layout/app-header/app-header.html.
+        let wasScrollingDown = this._lastScrollTop < this._scrollTop
+
+        this.style.display = this._computeDisplayStyle(wasScrollingDown)
+
+        // Update _lastScrollTop.
+        this._lastScrollTop = this._scrollTop
       }
     }
 

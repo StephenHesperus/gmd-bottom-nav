@@ -1,12 +1,30 @@
-<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/iron-scroll-target-behavior/iron-scroll-target-behavior.html">
 
 <dom-module id="gmd-bottom-nav">
   <template>
     <style>
       :host {
         display: block;
+        height: 56px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        /* This is an modified version of elevation of 8dp. All Y axis values are set to 0. */
+        box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.14), 0 0 14px 2px rgba(0, 0, 0, 0.12), 0 0 5px -3px rgba(0, 0, 0, 0.4);
+        /* See https://material.io/guidelines/motion/duration-easing.html.
+         * transition-duration is set accordingly when hiding/revealing.
+         */
+        transition-timing-function: cubic-bezier(0.4, 0.0, 0.6, 1);
+      }
+      :host([hidden]) {
+        box-shadow: none;
+        bottom: -56px;
       }
     </style>
+
     <h2>Hello [[prop1]]!</h2>
   </template>
 
@@ -19,18 +37,54 @@
      * @polymer
      * @demo demo/index.html
      */
-    class GmdBottomNav extends Polymer.Element {
-      static get is() { return 'gmd-bottom-nav'; }
+    class GmdBottomNav extends Polymer.mixinBehaviors([Polymer.IronScrollTargetBehavior], Polymer.Element) {
+
+      static get is() {
+        return 'gmd-bottom-nav';
+      }
+
       static get properties() {
         return {
           prop1: {
             type: String,
             value: 'gmd-bottom-nav'
+          },
+          hidden: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
           }
         };
+      }
+
+      constructor() {
+        super()
+        this._lastScrollTop = 0
+      }
+
+      _computeDisplayStyle(wasScrollingDown) {
+        return wasScrollingDown ? 'none' : 'block'
+      }
+
+      /*
+       * Override _scrollHanlder of Polymer.IronScrollTargetBehavior.
+       */
+      _scrollHandler() {
+        // First figure out scrolling up or down.
+        // _scrollTop is from Polymer.IronScrollTargetBehavior.
+        // The calculation is adopted from PolymerElements/app-layout/app-header/app-header.html.
+        let wasScrollingDown = this._lastScrollTop < this._scrollTop
+
+        // See https://material.io/guidelines/motion/duration-easing.html.
+        this.style.transitionDuration = wasScrollingDown ? '195ms' : '225ms'
+        this.hidden = wasScrollingDown
+
+        // Update _lastScrollTop.
+        this._lastScrollTop = this._scrollTop
       }
     }
 
     window.customElements.define(GmdBottomNav.is, GmdBottomNav);
+
   </script>
 </dom-module>

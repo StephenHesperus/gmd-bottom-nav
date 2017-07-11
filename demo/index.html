@@ -1,30 +1,30 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>gmd-bottom-nav demo</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <title>gmd-bottom-nav demo</title>
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../gmd-bottom-nav.html">
+  <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
-    </custom-style>
-  </head>
-  <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic gmd-bottom-nav demo</h3>
-      <demo-snippet>
-        <template>
-          <gmd-bottom-nav></gmd-bottom-nav>
-        </template>
-      </demo-snippet>
-    </div>
-  </body>
+  <link rel="import" href="x-scrollable.html">
+  <link rel="import" href="../gmd-bottom-nav.html">
+
+  <style>
+    gmd-bottom-nav {
+      background-color: deepskyblue;
+    }
+
+  </style>
+</head>
+
+<body>
+  <h3>Basic gmd-bottom-nav demo</h3>
+  <x-scrollable>
+  </x-scrollable>
+  <gmd-bottom-nav></gmd-bottom-nav>
+</body>
+
 </html>

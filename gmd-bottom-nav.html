@@ -14,6 +14,14 @@
         text-align: center;
         /* This is an modified version of elevation of 8dp. All Y axis values are set to 0. */
         box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.14), 0 0 14px 2px rgba(0, 0, 0, 0.12), 0 0 5px -3px rgba(0, 0, 0, 0.4);
+        /* See https://material.io/guidelines/motion/duration-easing.html.
+         * transition-duration is set accordingly when hiding/revealing.
+         */
+        transition-timing-function: cubic-bezier(0.4, 0.0, 0.6, 1);
+      }
+      :host([hidden]) {
+        box-shadow: none;
+        bottom: -56px;
       }
     </style>
 
@@ -40,6 +48,11 @@
           prop1: {
             type: String,
             value: 'gmd-bottom-nav'
+          },
+          hidden: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
           }
         };
       }
@@ -62,7 +75,9 @@
         // The calculation is adopted from PolymerElements/app-layout/app-header/app-header.html.
         let wasScrollingDown = this._lastScrollTop < this._scrollTop
 
-        this.style.display = this._computeDisplayStyle(wasScrollingDown)
+        // See https://material.io/guidelines/motion/duration-easing.html.
+        this.style.transitionDuration = wasScrollingDown ? '195ms' : '225ms'
+        this.hidden = wasScrollingDown
 
         // Update _lastScrollTop.
         this._lastScrollTop = this._scrollTop

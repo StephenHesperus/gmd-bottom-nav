@@ -1,0 +1,62 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+
+<dom-module id="gmd-bottom-nav-tab">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        height: 56px;
+        padding-top: 8px;
+        color: rgba(0, 0, 0, .54);
+      }
+      :host(.selected) {
+        padding-top: 6px;
+        color: black;
+      }
+    </style>
+
+   <iron-icon icon="[[icon]]"></iron-icon>
+   <div>[[label]]</div>
+
+  </template>
+
+  <script>
+    /**
+     * `gmd-bottom-nav-tab`
+     * Tab element for Google Material Design bottom navigation
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class GmdBottomNavTab extends Polymer.Element {
+
+      static get is() {
+        return 'gmd-bottom-nav-tab';
+      }
+
+      static get properties() {
+        return {
+          icon: {
+            type: String,
+            value: ''
+          },
+          name: {
+            type: String,
+            value: ''
+          },
+          label: {
+            type: String,
+            value: ''
+          }
+        };
+      }
+
+    }
+
+    window.customElements.define(GmdBottomNavTab.is, GmdBottomNavTab);
+
+  </script>
+</dom-module>

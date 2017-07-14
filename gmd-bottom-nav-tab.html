@@ -1,7 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="/bower_components/paper-styles/typography.html">
-
+<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 
 <dom-module id="gmd-bottom-nav-tab">
   <template>
@@ -10,17 +10,24 @@
         position: relative;
         display: flex;
         justify-content: center;
+        align-items: center;
         box-sizing: border-box;
         height: 56px;
-        padding-top: 8px;
+        padding: 8px 12px 0;
         color: rgba(0, 0, 0, .38);
         @apply --paper-font-common-base;
         font-size: 12px;
+        /* This contains the ripple inside of the tab. */
+        overflow: hidden;
       }
       :host(.selected) {
         padding-top: 6px;
         color: rgba(0, 0, 0, .54);
         font-size: 14px;
+      }
+
+      iron-icon {
+        align-self: flex-start;
       }
 
       #label-container {
@@ -40,6 +47,15 @@
         /* top must be equal to label offset height */
         top: -30px;
       }
+
+      #ripple-container {
+        position: absolute;
+        width: 100%;
+        /* This ensures the container is a square. */
+        padding-top: 100%;
+        /* Create round border for ripple. */
+        border-radius: 50%;
+      }
     </style>
 
    <iron-icon icon="[[icon]]"></iron-icon>
@@ -47,6 +63,10 @@
      <div class="label-offset"></div>
      <div id="label">[[label]]</div>
      <div class="label-offset"></div>
+   </div>
+
+   <div id="ripple-container">
+     <paper-ripple></paper-ripple>
    </div>
 
   </template>

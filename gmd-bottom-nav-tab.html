@@ -1,24 +1,52 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/paper-styles/typography.html">
+
 
 <dom-module id="gmd-bottom-nav-tab">
   <template>
     <style>
       :host {
-        display: block;
+        position: relative;
+        display: flex;
+        justify-content: center;
         box-sizing: border-box;
         height: 56px;
         padding-top: 8px;
-        color: rgba(0, 0, 0, .54);
+        color: rgba(0, 0, 0, .38);
+        @apply --paper-font-common-base;
+        font-size: 12px;
       }
       :host(.selected) {
         padding-top: 6px;
-        color: black;
+        color: rgba(0, 0, 0, .54);
+        font-size: 14px;
+      }
+
+      #label-container {
+        position: absolute;
+        /* tab height - label offset: 56 - 10 */
+        top: 46px;
+      }
+      .label-offset {
+        display: inline-block;
+        /* height must be greater than label text content box height */
+        height: 30px;
+      }
+      #label {
+        display: inline-block;
+        position: relative;
+        /* top must be equal to label offset height */
+        top: -30px;
       }
     </style>
 
    <iron-icon icon="[[icon]]"></iron-icon>
-   <div>[[label]]</div>
+   <div id="label-container">
+     <div class="label-offset"></div>
+     <div id="label">[[label]]</div>
+     <div class="label-offset"></div>
+   </div>
 
   </template>
 

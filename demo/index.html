@@ -11,6 +11,9 @@
 
   <link rel="import" href="x-scrollable.html">
   <link rel="import" href="../gmd-bottom-nav.html">
+  <link rel="import" href="../gmd-bottom-nav-tab.html">
+  <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+  <link rel="import" href="/bower_components/iron-icons/maps-icons.html">
 
   <style>
     gmd-bottom-nav {
@@ -24,7 +27,11 @@
   <h3>Basic gmd-bottom-nav demo</h3>
   <x-scrollable>
   </x-scrollable>
-  <gmd-bottom-nav></gmd-bottom-nav>
+  <gmd-bottom-nav>
+    <gmd-bottom-nav-tab icon="history" name="recents" label="Recents"></gmd-bottom-nav-tab>
+    <gmd-bottom-nav-tab icon="favorite" name="favorites" label="Favorites"></gmd-bottom-nav-tab>
+    <gmd-bottom-nav-tab icon="maps:place" name="nearby" label="Nearby"></gmd-bottom-nav-tab>
+  </gmd-bottom-nav>
 </body>
 
 </html>

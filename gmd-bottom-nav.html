@@ -53,6 +53,15 @@
             type: Boolean,
             value: false,
             reflectToAttribute: true
+          },
+
+          /* Set selectedClass to 'selected' because it's used in <gm-bottom-nav-tab> to style the selected tab.
+           * And we don't want the user to change it.
+           */
+          selectedClass: {
+            type: String,
+            value: 'selected',
+            readOnly: true
           }
         };
       }

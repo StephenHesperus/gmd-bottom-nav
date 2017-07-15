@@ -20,6 +20,7 @@
         /* This contains the ripple inside of the tab. */
         overflow: hidden;
       }
+
       :host(.selected) {
         padding-top: 6px;
         color: rgba(0, 0, 0, .54);
@@ -36,11 +37,13 @@
         top: 46px;
         user-select: none;
       }
+
       .label-offset {
         display: inline-block;
         /* height must be greater than label text content box height */
         height: 30px;
       }
+
       #label {
         display: inline-block;
         position: relative;
@@ -56,18 +59,20 @@
         /* Create round border for ripple. */
         border-radius: 50%;
       }
+
     </style>
 
-   <iron-icon icon="[[icon]]"></iron-icon>
-   <div id="label-container">
-     <div class="label-offset"></div>
-     <div id="label">[[label]]</div>
-     <div class="label-offset"></div>
-   </div>
+    <iron-icon icon="[[icon]]"></iron-icon>
 
-   <div id="ripple-container">
-     <paper-ripple></paper-ripple>
-   </div>
+    <div id="label-container">
+      <div class="label-offset"></div>
+      <div id="label">[[label]]</div>
+      <div class="label-offset"></div>
+    </div>
+
+    <div id="ripple-container">
+      <paper-ripple></paper-ripple>
+    </div>
 
   </template>
 

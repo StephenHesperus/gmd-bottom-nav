@@ -1,5 +1,6 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/iron-scroll-target-behavior/iron-scroll-target-behavior.html">
+<link rel="import" href="/bower_components/iron-selector/iron-selectable.html">
 
 <dom-module id="gmd-bottom-nav">
   <template>
@@ -40,7 +41,7 @@
      * @polymer
      * @demo demo/index.html
      */
-    class GmdBottomNav extends Polymer.mixinBehaviors([Polymer.IronScrollTargetBehavior], Polymer.Element) {
+    class GmdBottomNav extends Polymer.mixinBehaviors([Polymer.IronScrollTargetBehavior, Polymer.IronSelectableBehavior], Polymer.Element) {
 
       static get is() {
         return 'gmd-bottom-nav';

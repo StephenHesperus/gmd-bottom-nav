@@ -60,6 +60,17 @@
         border-radius: 50%;
       }
 
+      :host([in-shifting-mode]:not(.selected)) #label-container {
+        display: none;
+      }
+      :host([in-shifting-mode]:not(.selected)) iron-icon {
+        /* The guidelines say the icon should have a bottom padding of 16dp in shifting mode.
+         * With the height of bottom navigation being 56dp, and the height of the icon being 24dp, the top padding
+         * equals the bottom padding, thus the icon being centered.
+         */
+        align-self: center;
+      }
+
     </style>
 
     <iron-icon icon="[[icon]]"></iron-icon>
@@ -100,6 +111,11 @@
           label: {
             type: String,
             value: ''
+          },
+          inShiftingMode: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
           }
         };
       }

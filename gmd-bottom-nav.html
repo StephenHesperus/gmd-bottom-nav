@@ -69,9 +69,9 @@
 
           inShiftingMode: {
             type: Boolean,
-            value: false,
             reflectToAttribute: true,
-            computed: '_decideIfInShiftingMode()'
+            computed: '_decideIfInShiftingMode()',
+            observer: '_switchShiftingMode'
           }
         };
       }
@@ -79,6 +79,7 @@
       constructor() {
         super()
         this._lastScrollTop = 0
+        this._tabs = null
       }
 
       _computeDisplayStyle(wasScrollingDown) {
@@ -104,7 +105,14 @@
 
       _decideIfInShiftingMode() {
         let tabs = this.querySelectorAll('gmd-bottom-nav-tab')
+        this._tabs = tabs
+
         return tabs.length > 3
+      }
+
+      _switchShiftingMode(newValue, oldValue) {
+        for (let tab of this._tabs)
+          tab.inShiftingMode = newValue
       }
     }
 

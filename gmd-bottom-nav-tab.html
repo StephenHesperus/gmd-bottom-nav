@@ -12,6 +12,8 @@
         justify-content: center;
         align-items: center;
         box-sizing: border-box;
+        min-width: 80px;
+        max-width: 168px;
         height: 56px;
         padding: 8px 12px 0;
         color: rgba(0, 0, 0, .38);
@@ -19,12 +21,15 @@
         font-size: 12px;
         /* This contains the ripple inside of the tab. */
         overflow: hidden;
+        transition-duration: 195ms;
+        transition-timing-function: cubic-bezier(0.4, 0.0, 0.6, 1);
       }
 
       :host(.selected) {
         padding-top: 6px;
         color: rgba(0, 0, 0, .54);
         font-size: 14px;
+        transition-duration: 225ms;
       }
 
       iron-icon {
@@ -58,6 +63,28 @@
         padding-top: 100%;
         /* Create round border for ripple. */
         border-radius: 50%;
+      }
+
+      :host([in-shifting-mode]) #ripple-container {
+        display: none;
+      }
+      :host([in-shifting-mode].selected) {
+        min-width: 96px;
+        max-width: 168px;
+      }
+      :host([in-shifting-mode]:not(.selected)) {
+        min-width: 56px;
+        max-width: 96px;
+      }
+      :host([in-shifting-mode]:not(.selected)) #label-container {
+        opacity: 0;
+      }
+      :host([in-shifting-mode]:not(.selected)) iron-icon {
+        /* The guidelines say the icon should have a bottom padding of 16dp in shifting mode.
+         * With the height of bottom navigation being 56dp, and the height of the icon being 24dp, the top padding
+         * equals the bottom padding, thus the icon being centered.
+         */
+        align-self: center;
       }
 
     </style>
@@ -100,6 +127,11 @@
           label: {
             type: String,
             value: ''
+          },
+          inShiftingMode: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
           }
         };
       }

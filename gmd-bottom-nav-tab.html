@@ -62,6 +62,9 @@
         border-radius: 50%;
       }
 
+      :host([in-shifting-mode]) #ripple-container {
+        display: none;
+      }
       :host([in-shifting-mode].selected) {
         min-width: 96px;
         max-width: 168px;

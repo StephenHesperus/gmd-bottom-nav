@@ -1,6 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/iron-scroll-target-behavior/iron-scroll-target-behavior.html">
 <link rel="import" href="/bower_components/iron-selector/iron-selectable.html">
+<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 
 <dom-module id="gmd-bottom-nav">
   <template>
@@ -20,10 +21,17 @@
          */
         transition-timing-function: cubic-bezier(0.4, 0.0, 0.6, 1);
       }
+      :host paper-ripple {
+        display: none;
+      }
 
       :host([hidden]) {
         box-shadow: none;
         bottom: -56px;
+      }
+
+      :host([in-shifting-mode]) paper-ripple {
+        display: block;
       }
 
       ::slotted(gmd-bottom-nav-tab) {
@@ -33,6 +41,8 @@
     </style>
 
     <slot></slot>
+
+    <paper-ripple></paper-ripple>
 
   </template>
 

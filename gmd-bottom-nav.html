@@ -21,6 +21,7 @@
          */
         transition-timing-function: cubic-bezier(0.4, 0.0, 0.6, 1);
       }
+
       :host paper-ripple {
         display: none;
       }
@@ -83,6 +84,32 @@
             reflectToAttribute: true,
             computed: '_decideIfInShiftingMode()',
             observer: '_switchShiftingMode'
+          },
+
+          /* themingMethod should be 'foreground' or 'background'.
+           * 'foreground' method uses the supplied color or the primary color of the app,
+           * and fallback to greyscale.
+           * 'background' method uses white color for the icons, and a different background color for
+           * when each tab is active.
+           */
+          themingMethod: {
+            type: String,
+            value: 'foreground'
+          },
+
+          /* foregroundColor is used when themingMethod is set to 'foreground'.
+           * It is the foreground color of the active tab.
+           */
+          foregroundColor: {
+            type: String
+          },
+
+          /* backgroundColors is used when themingMethod is set to 'background'.
+           * It is an array with the length of the number of tabs, and each element is the background color
+           * to use when the tab at that index is active.
+           */
+          backgroundColors: {
+            type: Array
           }
         };
       }

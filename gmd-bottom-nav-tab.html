@@ -27,7 +27,7 @@
 
       :host(.selected) {
         padding-top: 6px;
-        color: rgba(0, 0, 0, .54);
+        color: var(--foreground-color, rgba(0, 0, 0, .54));
         font-size: 14px;
         transition-duration: 225ms;
       }
@@ -65,20 +65,28 @@
         border-radius: 50%;
       }
 
+      paper-ripple {
+        color: var(--foreground-color, rgba(0, 0, 0, 0.38));
+      }
+
       :host([in-shifting-mode]) #ripple-container {
         display: none;
       }
+
       :host([in-shifting-mode].selected) {
         min-width: 96px;
         max-width: 168px;
       }
+
       :host([in-shifting-mode]:not(.selected)) {
         min-width: 56px;
         max-width: 96px;
       }
+
       :host([in-shifting-mode]:not(.selected)) #label-container {
         opacity: 0;
       }
+
       :host([in-shifting-mode]:not(.selected)) iron-icon {
         /* The guidelines say the icon should have a bottom padding of 16dp in shifting mode.
          * With the height of bottom navigation being 56dp, and the height of the icon being 24dp, the top padding

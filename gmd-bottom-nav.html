@@ -39,6 +39,10 @@
         flex-grow: 1;
       }
 
+      :host([theming-method="foreground"]) {
+        background-color: white;
+      }
+
     </style>
 
     <slot></slot>
@@ -94,7 +98,8 @@
            */
           themingMethod: {
             type: String,
-            value: 'foreground'
+            value: 'foreground',
+            reflectToAttribute: true
           },
 
           /* foregroundColor is used when themingMethod is set to 'foreground'.

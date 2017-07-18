@@ -21,7 +21,7 @@
         font-size: 12px;
         /* This contains the ripple inside of the tab. */
         overflow: hidden;
-        transition-duration: 195ms;
+        transition-duration: 225ms;
         transition-timing-function: cubic-bezier(0.4, 0.0, 0.6, 1);
       }
 
@@ -63,14 +63,16 @@
         padding-top: 100%;
         /* Create round border for ripple. */
         border-radius: 50%;
+        display: flex;
+        justify-content: center;
       }
 
       paper-ripple {
         color: var(--foreground-color, rgba(0, 0, 0, 0.38));
       }
 
-      :host([in-shifting-mode]) #ripple-container {
-        display: none;
+      :host([in-shifting-mode]) #ripple {
+        color: white;
       }
 
       :host([in-shifting-mode].selected) {
@@ -92,7 +94,7 @@
          * With the height of bottom navigation being 56dp, and the height of the icon being 24dp, the top padding
          * equals the bottom padding, thus the icon being centered.
          */
-        align-self: center;
+        margin-top: 8px; /* (56 - 24) / 2 - 8 */
       }
 
     </style>
@@ -106,7 +108,7 @@
     </div>
 
     <div id="ripple-container">
-      <paper-ripple></paper-ripple>
+      <paper-ripple id="ripple"></paper-ripple>
     </div>
 
   </template>

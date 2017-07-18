@@ -101,6 +101,24 @@
         margin-top: 8px; /* (56 - 24) / 2 - 8 */
       }
 
+      :host([side-navigation]) {
+        padding-top: 20px; /* 80dp - 56dp + 8dp */
+        height: 80px;
+      }
+
+      :host([side-navigation].selected) {
+        padding-top: 18px; /* 80dp - 56dp + 6dp */
+      }
+
+      :host([side-navigation]) #label-container {
+        /* 80dp - (80dp -56dp) / 2 - 10dp */
+        top: 58px;
+      }
+
+      :host([side-navigation]) #ripple-container {
+        top: 0px;
+      }
+
     </style>
 
     <iron-icon icon="[[icon]]"></iron-icon>
@@ -129,7 +147,7 @@
     class GmdBottomNavTab extends Polymer.Element {
 
       static get is() {
-        return 'gmd-bottom-nav-tab';
+        return 'gmd-bottom-nav-tab'
       }
 
       static get properties() {
@@ -143,6 +161,12 @@
             value: ''
           },
           inShiftingMode: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+          },
+
+          sideNavigation: {
             type: Boolean,
             value: false,
             reflectToAttribute: true

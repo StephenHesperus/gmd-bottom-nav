@@ -55,6 +55,21 @@
         color: white;
       }
 
+      :host([side-navigation]) {
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 80px;
+        height: 100%;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background-color: white;
+      }
+
+      :host([side-navigation]) ::slotted(gmd-bottom-nav-tab) {
+        flex-grow: 0;
+      }
+
     </style>
 
     <slot></slot>
@@ -75,7 +90,7 @@
     class GmdBottomNav extends Polymer.mixinBehaviors([Polymer.IronScrollTargetBehavior, Polymer.IronSelectableBehavior], Polymer.Element) {
 
       static get is() {
-        return 'gmd-bottom-nav';
+        return 'gmd-bottom-nav'
       }
 
       static get properties() {
@@ -112,6 +127,13 @@
             type: String,
             value: 'foreground',
             reflectToAttribute: true
+          },
+
+          sideNavigation: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true,
+            observer: '_useSideNavigation'
           }
         };
       }
@@ -130,14 +152,19 @@
         this._eClientX = 0
         this._eClientY = 0
 
-        this.addEventListener('tap', e => this._getRippleCenter(e))
-        this.addEventListener('iron-select', e => this._changeBackgroundColor(e))
+        this._tapListener = e => this._getRippleCenter(e)
+        this._ironSelectListener = e => this._changeBackgroundColor(e)
+        this.addEventListener('tap', this._tapListener)
+        this.addEventListener('iron-select', this._ironSelectListener)
       }
 
       /*
        * Override _scrollHanlder of Polymer.IronScrollTargetBehavior.
        */
       _scrollHandler() {
+        if (this.sideNavigation)
+          return true
+
         // First figure out scrolling up or down.
         // _scrollTop is from Polymer.IronScrollTargetBehavior.
         // The calculation is adopted from PolymerElements/app-layout/app-header/app-header.html.
@@ -155,10 +182,16 @@
         let tabs = this.querySelectorAll('gmd-bottom-nav-tab')
         this._tabs = tabs
 
+        if (this.sideNavigation)
+          return false
+
         return tabs.length > 3
       }
 
       _switchShiftingMode(newValue, oldValue) {
+        if (this.sideNavigation)
+          return false
+
         for (let tab of this._tabs)
           tab.inShiftingMode = newValue
       }
@@ -197,6 +230,16 @@
         })
         radialAnimation.onfinish = () => {
           this.style.backgroundColor = this._ripple.style.backgroundColor
+        }
+      }
+
+      _useSideNavigation(newValue, oldValue) {
+        for (let tab of this._tabs)
+          tab.sideNavigation = newValue
+
+        if (newValue) {
+          this.removeEventListener('tap', this._tapListener)
+          this.removeEventListener('iron-select', this._ironSelectListener)
         }
       }
     }

@@ -20,11 +20,7 @@
 
   <style>
     gmd-bottom-nav {
-      --background-color-1: brown;
-      --background-color-2: green;
-      --background-color-3: blue;
-      --background-color-4: orange;
-      --background-color-default: var(--background-color-2);
+      --foreground-color: var(--paper-blue-500);
     }
 
   </style>
@@ -34,7 +30,7 @@
   <h3>Basic gmd-bottom-nav demo</h3>
   <x-scrollable item-count="20">
   </x-scrollable>
-  <gmd-bottom-nav attr-for-selected="name" fallback-selection="favorites" theming-method="background">
+  <gmd-bottom-nav attr-for-selected="name" fallback-selection="favorites" side-navigation>
     <gmd-bottom-nav-tab icon="history" name="recents" label="Recents"></gmd-bottom-nav-tab>
     <gmd-bottom-nav-tab icon="favorite" name="favorites" label="Favorites"></gmd-bottom-nav-tab>
     <gmd-bottom-nav-tab icon="maps:place" name="nearby" label="Nearby"></gmd-bottom-nav-tab>

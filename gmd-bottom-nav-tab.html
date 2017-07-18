@@ -71,7 +71,11 @@
         color: var(--foreground-color, rgba(0, 0, 0, 0.38));
       }
 
-      :host([in-shifting-mode]) #ripple {
+      :host([in-shifting-mode]) {
+        transition-delay: 255ms;
+      }
+
+      :host([in-shifting-mode]) paper-ripple {
         color: white;
       }
 
@@ -108,7 +112,7 @@
     </div>
 
     <div id="ripple-container">
-      <paper-ripple id="ripple"></paper-ripple>
+      <paper-ripple></paper-ripple>
     </div>
 
   </template>

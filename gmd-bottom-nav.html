@@ -112,21 +112,6 @@
             type: String,
             value: 'foreground',
             reflectToAttribute: true
-          },
-
-          /* foregroundColor is used when themingMethod is set to 'foreground'.
-           * It is the foreground color of the active tab.
-           */
-          foregroundColor: {
-            type: String
-          },
-
-          /* backgroundColors is used when themingMethod is set to 'background'.
-           * It is an array with the length of the number of tabs, and each element is the background color
-           * to use when the tab at that index is active.
-           */
-          backgroundColors: {
-            type: Array
           }
         };
       }
@@ -147,10 +132,6 @@
 
         this.addEventListener('tap', e => this._getRippleCenter(e))
         this.addEventListener('iron-select', e => this._changeBackgroundColor(e))
-      }
-
-      _computeDisplayStyle(wasScrollingDown) {
-        return wasScrollingDown ? 'none' : 'block'
       }
 
       /*

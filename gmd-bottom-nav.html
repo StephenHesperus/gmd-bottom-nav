@@ -1,7 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 <link rel="import" href="/bower_components/iron-scroll-target-behavior/iron-scroll-target-behavior.html">
 <link rel="import" href="/bower_components/iron-selector/iron-selectable.html">
-<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="/bower_components/web-animations-js/web-animations.min.html">
 
 <dom-module id="gmd-bottom-nav">
   <template>
@@ -20,8 +20,10 @@
          * transition-duration is set accordingly when hiding/revealing.
          */
         transition-timing-function: cubic-bezier(0.4, 0.0, 0.6, 1);
+        overflow: hidden;
       }
-      :host paper-ripple {
+
+      #paper-ripple {
         display: none;
       }
 
@@ -30,19 +32,34 @@
         bottom: -56px;
       }
 
-      :host([in-shifting-mode]) paper-ripple {
+      :host([in-shifting-mode]) #ripple {
         display: block;
+        position: absolute;
+        border-radius: 50%;
       }
 
       ::slotted(gmd-bottom-nav-tab) {
         flex-grow: 1;
       }
 
+      :host([theming-method="background"]) {
+        background-color: var(--background-color-default);
+      }
+
+      :host([theming-method="background"]) ::slotted(gmd-bottom-nav-tab) {
+        color: rgba(255, 255, 255, .7);
+        z-index: 100;
+      }
+
+      :host([theming-method="background"]) ::slotted(gmd-bottom-nav-tab.selected) {
+        color: white;
+      }
+
     </style>
 
     <slot></slot>
 
-    <paper-ripple></paper-ripple>
+    <div id="ripple"></div>
 
   </template>
 
@@ -83,6 +100,18 @@
             reflectToAttribute: true,
             computed: '_decideIfInShiftingMode()',
             observer: '_switchShiftingMode'
+          },
+
+          /* themingMethod should be 'foreground' or 'background'.
+           * 'foreground' method uses the supplied color or the primary color of the app,
+           * and fallback to greyscale.
+           * 'background' method uses white color for the icons, and a different background color for
+           * when each tab is active.
+           */
+          themingMethod: {
+            type: String,
+            value: 'foreground',
+            reflectToAttribute: true
           }
         };
       }
@@ -91,10 +120,18 @@
         super()
         this._lastScrollTop = 0
         this._tabs = null
-      }
 
-      _computeDisplayStyle(wasScrollingDown) {
-        return wasScrollingDown ? 'none' : 'block'
+        let style = window.getComputedStyle(this)
+        let bgColors = []
+        for (let i = 0; i < 5; i++)
+          bgColors[i] = style.getPropertyValue(`--background-color-${i + 1}`)
+        this._bgColors = bgColors
+
+        this._eClientX = 0
+        this._eClientY = 0
+
+        this.addEventListener('tap', e => this._getRippleCenter(e))
+        this.addEventListener('iron-select', e => this._changeBackgroundColor(e))
       }
 
       /*
@@ -124,6 +161,43 @@
       _switchShiftingMode(newValue, oldValue) {
         for (let tab of this._tabs)
           tab.inShiftingMode = newValue
+      }
+
+      _getRippleCenter(e) {
+        this._eClientX = e.detail.x
+        this._eClientY = e.detail.y
+      }
+
+      _changeBackgroundColor(e) {
+        if (!this._ripple)
+          this._ripple = this.shadowRoot.querySelector('#ripple')
+
+        let index = this.indexOf(this.selectedItem)
+        this._ripple.style.backgroundColor = this._bgColors[index]
+
+        let eClientX = this._eClientX
+        let eClientY = this._eClientY
+        // Calculate the distance from the further point out of the four corners.
+        let distanceX = Math.max(this.offsetLeft + this.offsetWidth - eClientX, eClientX - this.offsetLeft)
+        let distanceY = Math.max(this.offsetTop + this.offsetHeight - eClientY, eClientY - this.offsetTop)
+        let radius = Math.sqrt(distanceX * distanceX + distanceY * distanceY)
+        let left0 = eClientX - this.offsetLeft + 'px'
+        let left1 = eClientX - this.offsetLeft - radius + 'px'
+        let top0 = eClientY - this.offsetTop + 'px'
+        let top1 = eClientY - this.offsetTop - radius + 'px'
+
+        let radialAnimation = this._ripple.animate({
+          width: ['0px', radius * 2 + 'px'],
+          height: ['0px', radius * 2 + 'px'],
+          left: [left0, left1],
+          top: [top0, top1]
+        }, {
+          duration: 225,
+          easing: 'cubic-bezier(0.0, 0.0, 0.2, 1)'
+        })
+        radialAnimation.onfinish = () => {
+          this.style.backgroundColor = this._ripple.style.backgroundColor
+        }
       }
     }
 

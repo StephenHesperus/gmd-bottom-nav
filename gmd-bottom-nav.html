@@ -194,6 +194,11 @@
 
         for (let tab of this._tabs)
           tab.inShiftingMode = newValue
+
+        if (!newValue) {
+          this.removeEventListener('tap', this._tapListener)
+          this.removeEventListener('iron-select', this._ironSelectListener)
+        }
       }
 
       _getRippleCenter(e) {

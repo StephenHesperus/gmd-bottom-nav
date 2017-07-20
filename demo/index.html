@@ -7,34 +7,28 @@
 
   <title>gmd-bottom-nav demo</title>
 
-  <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-  <link rel="import" href="x-scrollable.html">
-  <link rel="import" href="../gmd-bottom-nav.html">
-  <link rel="import" href="../gmd-bottom-nav-tab.html">
-  <link rel="import" href="../../iron-icons/iron-icons.html">
-  <link rel="import" href="../../iron-icons/maps-icons.html">
-  <link rel="import" href="../../iron-icons/social-icons.html">
-  <link rel="import" href="../../paper-styles/color.html">
+  <link rel="import" href="../../paper-styles/demo-pages.html">
 
   <style>
-    gmd-bottom-nav {
-      --foreground-color: var(--paper-blue-500);
+    a {
+      display: block;
+      margin-bottom: 10px;
     }
 
   </style>
 </head>
 
-<body>
-  <h3>Basic gmd-bottom-nav demo</h3>
-  <x-scrollable item-count="20">
-  </x-scrollable>
-  <gmd-bottom-nav attr-for-selected="name" fallback-selection="favorites" side-navigation>
-    <gmd-bottom-nav-tab icon="history" name="recents" label="Recents"></gmd-bottom-nav-tab>
-    <gmd-bottom-nav-tab icon="favorite" name="favorites" label="Favorites"></gmd-bottom-nav-tab>
-    <gmd-bottom-nav-tab icon="maps:place" name="nearby" label="Nearby"></gmd-bottom-nav-tab>
-    <gmd-bottom-nav-tab icon="social:people" name="share" label="Share"></gmd-bottom-nav-tab>
-  </gmd-bottom-nav>
+<body unresolved>
+  <div class="horizontal-section-container">
+    <div>
+      <h1>&lt;gmd-bottom-nav&gt; demos</h1>
+      <div class="horizontal-section">
+        <a href="3-tabs-foreground.html">3 Tabs with foreground theming method</a>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

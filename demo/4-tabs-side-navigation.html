@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>gmd-bottom-nav demo</title>
+
+  <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="import" href="../../iron-icons/iron-icons.html">
+  <link rel="import" href="../../iron-icons/maps-icons.html">
+  <link rel="import" href="../../iron-icons/social-icons.html">
+  <link rel="import" href="../../paper-styles/color.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../iron-pages/iron-pages.html">
+  <link rel="import" href="../gmd-bottom-nav.html">
+  <link rel="import" href="../gmd-bottom-nav-tab.html">
+
+  <custom-style>
+    <style include="demo-pages-shared-styles"></style>
+  </custom-style>
+
+  <style>
+    body {
+      padding-left: 96px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1><a href="index.html">Demos</a></h1>
+  <h2>4 Tabs with side navigation</h2>
+
+  <demo-snippet class="centered-demo">
+    <template>
+      <dom-bind>
+        <template>
+          <!-- Here <dom-bind> and <template> are used to make sure data bind works.
+            -->
+
+          <!-- To make sure the content is blocked by the side navigation, do this:
+               <style>
+                 body {
+                   padding-left: 96px;
+                 }
+               </style>
+            -->
+          <style>
+            iron-pages {
+              width: 100%;
+              height: 200px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 32px;
+              font-weight: 500;
+              background-color: var(--paper-blue-500);
+            }
+
+            iron-icon {
+              width: 48px;
+              height: 48px;
+            }
+
+            gmd-bottom-nav {
+              --foreground-color: var(--paper-blue-500);
+              z-index: 100;
+            }
+
+          </style>
+
+          <iron-pages selected="{{selectedPage}}" attr-for-selected="name" fallback-selection="recents">
+            <div name="recents">
+              <iron-icon icon="history"></iron-icon> Recent Page</div>
+            <div name="favorites">
+              <iron-icon icon="favorite"></iron-icon> Favorites Page</div>
+            <div name="nearby">
+              <iron-icon icon="maps:place"></iron-icon> Nearby Page</div>
+          </iron-pages>
+
+          <gmd-bottom-nav selected="{{selectedPage}}" attr-for-selected="name" fallback-selection="recents"
+            side-navigation>
+            <gmd-bottom-nav-tab icon="history" name="recents" label="Recents"></gmd-bottom-nav-tab>
+            <gmd-bottom-nav-tab icon="favorite" name="favorites" label="Favorites"></gmd-bottom-nav-tab>
+            <gmd-bottom-nav-tab icon="maps:place" name="nearby" label="Nearby"></gmd-bottom-nav-tab>
+          </gmd-bottom-nav>
+        </template>
+      </dom-bind>
+    </template>
+  </demo-snippet>
+
+</body>
+
+</html>

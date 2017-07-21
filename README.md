@@ -4,7 +4,7 @@ Google Material Design bottom navigation
 
 ## Install the Polymer-CLI
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your element locally.
+First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve --open` to serve your element locally. The `--open` option make sure that the relative paths work.
 
 ## Viewing Your Element
 

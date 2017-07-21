@@ -1,7 +1,7 @@
-<link rel="import" href="/bower_components/polymer/polymer-element.html">
-<link rel="import" href="/bower_components/iron-scroll-target-behavior/iron-scroll-target-behavior.html">
-<link rel="import" href="/bower_components/iron-selector/iron-selectable.html">
-<link rel="import" href="/bower_components/web-animations-js/web-animations.min.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-scroll-target-behavior/iron-scroll-target-behavior.html">
+<link rel="import" href="../iron-selector/iron-selectable.html">
+<link rel="import" href="../web-animations-js/web-animations.min.html">
 
 <dom-module id="gmd-bottom-nav">
   <template>
@@ -21,6 +21,7 @@
          */
         transition-timing-function: cubic-bezier(0.4, 0.0, 0.6, 1);
         overflow: hidden;
+        background-color: white;
       }
 
       #paper-ripple {
@@ -194,6 +195,11 @@
 
         for (let tab of this._tabs)
           tab.inShiftingMode = newValue
+
+        if (!newValue) {
+          this.removeEventListener('tap', this._tapListener)
+          this.removeEventListener('iron-select', this._ironSelectListener)
+        }
       }
 
       _getRippleCenter(e) {
